@@ -1,0 +1,4 @@
+A FreeBSD hello world kmod
+
+It doesn't actually do anything useful -- it prints on load and unload, but
+otherwise has no useful functions. It's utility is as an example only.
