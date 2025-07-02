@@ -189,6 +189,7 @@
     SUBDIR += hs-hascard
     SUBDIR += hulgalugha
     SUBDIR += hwdata
+    SUBDIR += hworld-kmod
     SUBDIR += hxtools
     SUBDIR += ignition-fuel-tools
     SUBDIR += iio-oscilloscope
