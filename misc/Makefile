@@ -219,6 +219,7 @@
     SUBDIR += hs-hascard
     SUBDIR += hulgalugha
     SUBDIR += hwdata
+    SUBDIR += hworld-kmod
     SUBDIR += hxtools
     SUBDIR += hyprqt6engine
     SUBDIR += ignition-fuel-tools
