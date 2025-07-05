@@ -1,9 +1,13 @@
 PORTNAME=	wine
 DISTVERSION=	10.17
+PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	emulators
 MASTER_SITES=	https://dl.winehq.org/wine/source/10.x/
 PKGNAMESUFFIX=	-devel
+
+PATCH_SITES=	https://gitlab.winehq.org/wine/wine/-/merge_requests/
+PATCHFILES+=	7339.patch:-p1
 
 MAINTAINER=	monwarez@mailoo.org
 COMMENT=	Microsoft Windows compatibility environment
@@ -16,11 +20,13 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 ONLY_FOR_ARCHS=	amd64 i386
 
 BUILD_DEPENDS=	${LOCALBASE}/bin/flex:textproc/flex
-LIB_DEPENDS=	libhwloc.so:devel/hwloc2
+LIB_DEPENDS=	libhwloc.so:devel/hwloc2 \
+		libexpat.so:textproc/expat2
 
 # Only devel/llvm17 and later come with necessary include files - PR274542
-USES=		bison cpe desktop-file-utils gmake llvm:min=17,build,noexport \
-		localbase pkgconfig sdl shebangfix tar:xz
+USES=		autoreconf bison cpe desktop-file-utils gmake \
+		llvm:min=17,build,noexport localbase \
+		pkgconfig sdl shebangfix tar:xz
 CPE_VENDOR=	winehq
 USE_GCC=	yes
 WINELIBDIR=	${PREFIX}/lib
@@ -39,6 +45,7 @@ CONFIGURE_ARGS=	--verbose \
 		--without-capi \
 		--without-coreaudio \
 		--without-dbus \
+		--with-expat \
 		--without-ffmpeg \
 		--without-gettext --without-gettextpo \
 		--without-gphoto \
