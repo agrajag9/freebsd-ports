@@ -111,6 +111,7 @@
     SUBDIR += playonbsd
     SUBDIR += ppsspp
     SUBDIR += ppsspp-qt5
+    SUBDIR += proton-experimental
     SUBDIR += py-gns3-converter
     SUBDIR += py-m64py
     SUBDIR += py-unicorn
