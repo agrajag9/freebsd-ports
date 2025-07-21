@@ -678,6 +678,7 @@
     SUBDIR += qmidiarp
     SUBDIR += qmidictl
     SUBDIR += qmidinet
+    SUBDIR += qobuz-player
     SUBDIR += qsampler
     SUBDIR += qsynth
     SUBDIR += qtractor
