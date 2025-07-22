@@ -8,9 +8,16 @@ COMMENT=	High resolution audio player backed by Qobuz
 WWW=		https://github.com/SofusA/qobuz-player
 
 LICENSE=	GPLv3
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		cargo
+USES=		cargo \
+		gstreamer \
+		sqlite \
+		ssl
 USE_GITHUB=	yes
 GH_ACCOUNT=	SofusA
 
+PLIST_FILES=	bin/${PORTNAME}
+
+.include <Makefile.crates>
 .include <bsd.port.mk>
