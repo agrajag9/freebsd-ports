@@ -183,6 +183,7 @@
     SUBDIR += wine-mono
     SUBDIR += wine-mono-devel
     SUBDIR += wine-proton
+    SUBDIR += wine-wow64-devel
     SUBDIR += winetricks
     SUBDIR += x16-emulator
     SUBDIR += x16-rom
