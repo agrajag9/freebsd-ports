@@ -1,6 +1,6 @@
 PORTNAME=	hworld-kmod
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.0.1
+DISTVERSION=	0.0.2
 CATEGORIES=	misc
 
 MAINTAINER=	agrajag9@a9development.com
@@ -13,7 +13,7 @@ USES=		kmod
 USE_GITHUB=	yes
 GH_ACCOUNT=	agrajag9
 
-PLIST_FILES=	${KMODDIR}/hworld_kmod.ko
+PLIST_FILES=	${KMODDIR}/hworld-kmod.ko
 
 do-install:
 	${INSTALL_KLD} ${WRKSRC}/hworld-kmod.ko ${STAGEDIR}${KMODDIR}
