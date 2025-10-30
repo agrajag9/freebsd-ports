@@ -116,6 +116,7 @@
     SUBDIR += pcsx2
     SUBDIR += playonbsd
     SUBDIR += ppsspp
+    SUBDIR += proton-experimental
     SUBDIR += py-gns3-converter
     SUBDIR += py-m64py
     SUBDIR += py-qemu.qmp
