@@ -1,6 +1,7 @@
     COMMENT = Instant messaging
 
     SUBDIR += abaddon
+    SUBDIR += arrpc
     SUBDIR += beebeep
     SUBDIR += coccinella
     SUBDIR += concord
