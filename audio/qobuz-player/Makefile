@@ -1,6 +1,6 @@
 PORTNAME=	qobuz-player
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.3.2-2
+DISTVERSION=	0.6.5
 CATEGORIES=	audio
 
 MAINTAINER=	agrajag9@a9development.com
@@ -9,6 +9,8 @@ WWW=		https://github.com/SofusA/qobuz-player
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE
+
+LIB_DEPENDS=	libasound.so:audio/alsa-lib
 
 USES=		cargo \
 		gstreamer \
