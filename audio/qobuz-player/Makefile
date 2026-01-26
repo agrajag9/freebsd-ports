@@ -18,8 +18,12 @@ USES=		cargo \
 		ssl
 USE_GITHUB=	yes
 GH_ACCOUNT=	SofusA
+CARGO_INSTALL=	no
 
 PLIST_FILES=	bin/${PORTNAME}
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKDIR}/target/release/${PORTNAME} ${STAGEDIR}${PREFIX}/bin/
 
 .include <Makefile.crates>
 .include <bsd.port.mk>
