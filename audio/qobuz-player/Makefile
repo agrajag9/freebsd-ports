@@ -1,6 +1,6 @@
 PORTNAME=	qobuz-player
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.6.5
+DISTVERSION=	0.7.1
 CATEGORIES=	audio
 
 MAINTAINER=	agrajag9@a9development.com
