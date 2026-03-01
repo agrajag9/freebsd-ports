@@ -1,6 +1,5 @@
 PORTNAME=	deadbeef-spectrogram-plugin
-DISTVERSION=	0.0.2015.01.10
-PORTREVISION=	2
+DISTVERSION=	0.0.2024.11.08
 CATEGORIES=	audio
 
 MAINTAINER=	danfe@FreeBSD.org
@@ -16,7 +15,7 @@ RUN_DEPENDS:=	${BUILD_DEPENDS}
 USE_GITHUB=	yes
 GH_ACCOUNT=	cboxdoerfer
 GH_PROJECT=	ddb_spectrogram
-GH_TAGNAME=	8d1b371
+GH_TAGNAME=	cd6b5f9
 
 USES=		gmake gnome pkgconfig
 
