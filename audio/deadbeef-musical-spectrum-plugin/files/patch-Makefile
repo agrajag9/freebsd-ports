@@ -1,15 +1,15 @@
---- Makefile.orig	2015-10-13 10:45:43 UTC
+--- Makefile.orig	2025-07-31 09:46:45 UTC
 +++ Makefile
-@@ -32,7 +32,7 @@ GTK3_LIBS?=`pkg-config --libs gtk+-3.0`
+@@ -28,7 +28,7 @@ CC?=clang
  FFTW_LIBS?=-lfftw3
  
- CC?=gcc
--CFLAGS+=-Wall -g -O2 -fPIC -std=c99 -D_GNU_SOURCE
-+CFLAGS+=-Wall -fPIC -std=c99 -D_GNU_SOURCE
+ CC?=clang
+-CFLAGS+=-Wall -g -O2 -fPIC -std=c99 -D_GNU_SOURCE -Wno-deprecated-declarations
++CFLAGS+=-Wall -g -fPIC -std=c99 -D_GNU_SOURCE -Wno-deprecated-declarations
  LDFLAGS+=-shared
  
  GTK2_DIR?=gtk2
-@@ -69,21 +69,21 @@ mkdir_gtk3:
+@@ -65,21 +65,21 @@ $(GTK2_DIR)/$(OUT_GTK2): $(OBJ_GTK2)
  
  $(GTK2_DIR)/$(OUT_GTK2): $(OBJ_GTK2)
  	@echo "Linking GTK+2 version"

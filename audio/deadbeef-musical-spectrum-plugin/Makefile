@@ -1,6 +1,5 @@
 PORTNAME=	deadbeef-musical-spectrum-plugin
-DISTVERSION=	0.0.2015.10.13
-PORTREVISION=	2
+DISTVERSION=	0.0.2024.11.07
 CATEGORIES=	audio
 
 MAINTAINER=	danfe@FreeBSD.org
@@ -14,7 +13,7 @@ RUN_DEPENDS:=	${BUILD_DEPENDS}
 USE_GITHUB=	yes
 GH_ACCOUNT=	cboxdoerfer
 GH_PROJECT=	ddb_musical_spectrum
-GH_TAGNAME=	353870a
+GH_TAGNAME=	31be7dc
 
 USES=		gmake gnome pkgconfig
 
