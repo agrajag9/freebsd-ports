@@ -1,6 +1,5 @@
 PORTNAME=	deadbeef-waveform-seekbar-plugin
-DISTVERSION=	0.0.2016.01.01
-PORTREVISION=	2
+DISTVERSION=	0.0.2025.03.20
 CATEGORIES=	audio
 
 MAINTAINER=	danfe@FreeBSD.org
@@ -13,7 +12,7 @@ RUN_DEPENDS:=	${BUILD_DEPENDS}
 USE_GITHUB=	yes
 GH_ACCOUNT=	cboxdoerfer
 GH_PROJECT=	ddb_waveform_seekbar
-GH_TAGNAME=	0402f6d
+GH_TAGNAME=	7a0d2b1
 
 USES=		gmake gnome pkgconfig sqlite
 
