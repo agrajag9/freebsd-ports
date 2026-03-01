@@ -1,0 +1,9 @@
+[
+{
+  type: upgrade
+  maximum_version: "1.10.0"
+  message: <<EOM
+Do not forget to set your output plugin in Edit -> Preferences -> Sound -> Output.
+EOM
+}
+]

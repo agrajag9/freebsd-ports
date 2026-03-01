@@ -1,8 +1,10 @@
 PORTNAME=	deadbeef
-PORTVERSION=	0.7.2
-PORTREVISION=	32
+PORTVERSION=	1.10.0
 CATEGORIES=	audio
-MASTER_SITES=	SF/${PORTNAME}/Archive
+MASTER_SITES=	https://sourceforge.net/projects/deadbeef/files/travis/linux/${PORTVERSION}/
+
+PATCH_SITES=	https://github.com/DeaDBeeF-Player/deadbeef/commit/
+PATCHFILES=	cfd6ab264df35e8c6c59c8a32176f3b432a737d3.diff:-p1
 
 MAINTAINER=	danfe@FreeBSD.org
 COMMENT=	Ultimate music player for Unix-like systems
@@ -11,41 +13,37 @@ WWW=		https://deadbeef.sourceforge.io/
 LICENSE=	GPLv2 LGPL21
 LICENSE_COMB=	dual
 
-GNU_CONFIGURE=	yes
 USES=		compiler:c11 desktop-file-utils gettext gmake gnome iconv \
-		libtool pkgconfig shebangfix tar:bzip2
-USE_LDCONFIG=	yes
-CONFIGURE_ARGS=	--disable-alsa --disable-nullout --disable-static
-CPPFLAGS+=	-I../dumb/dumb-kode54/include -I../../plugins/libmp4ff \
-		-I../../plugins/gme/game-music-emu-0.6pre \
-		-I./sidplay-libs/libsidplay/include/sidplay \
-		-I${LOCALBASE}/include
+		libtool localbase pkgconfig shebangfix tar:bzip2
+
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--disable-alsa \
+		--disable-cdda \
+		--disable-sid
 CFLAGS+=	-Wno-narrowing
 LDFLAGS_i386=	-Wl,-z,notext
-LIBS+=		-L${LOCALBASE}/lib -lexecinfo -lintl
 USE_GNOME=	intltool
 SHEBANG_FILES=	yasmwrapper.sh
 INSTALL_TARGET=	install-strip
 
-OPTIONS_DEFINE=	AAC ADPLUG ALAC ART CDDA CONVERTER DCA DSP DUMB FFAP \
-		FFMPEG FLAC GME GUI HOTKEYS LASTFM M3U MMS MONO2STEREO \
-		MUSEPACK NLS NOTIFY OGG PLTBROWSER PSF PULSEAUDIO SC68 \
-		SHELLEXEC SHN SID SNDFILE SUPEREQ TTA VFS VFS_ZIP VTX \
-		WAVPACK WILDMIDI WMA
+OPTIONS_DEFINE=		AAC ADPLUG ALAC ART CONVERTER DCA DSP DUMB FFAP FFMPEG \
+			FLAC GME GUI HOTKEYS LASTFM LIBRETRO M3U MMS \
+			MONO2STEREO MUSEPACK NLS NOTIFY OGG OPUS PIPEWIRE \
+			PLTBROWSER PSF PULSEAUDIO RGSCANNER SC68 SHELLEXEC SHN \
+			SNDFILE SOUNDTOUCH SUPEREQ TTA VFS VFS_ZIP VTX WAVPACK \
+			WILDMIDI WMA
+OPTIONS_DEFAULT=	ALAC ART CONVERTER DUMB FFAP FFMPEG FLAC GME GTK3 \
+			HOSTKEYS HOTKEYS LASTFM LIBRETRO MAD MONO2STEREO MPG123 \
+			MUSEPACK NOTIFY OGG OPUS PLTBROWSER PULSEAUDIO \
+			RGSCANNER SC68 SNDFILE SOUNDTOUCH SUPEREQ VFS VFS_ZIP \
+			VTX WAVPACK WMA
 
-OPTIONS_DEFAULT=AAC ADPLUG ALAC ART CONVERTER DCA DSP DUMB FFAP FLAC GME \
-		GTK2 HOSTKEYS HOTKEYS LASTFM M3U MAD MMS MONO2STEREO \
-		MPG123 MUSEPACK NOTIFY OGG PLTBROWSER PSF SC68 SHELLEXEC \
-		SHN SID SNDFILE SUPEREQ TTA VFS VFS_ZIP VTX WAVPACK \
-		WILDMIDI WMA
-
-PULSEAUDIO_DESC=	PulseAudio output plugin (unsupported)
+PULSEAUDIO_DESC=	PulseAudio output plugin
 GUI_DESC=		Standard GUI plugin
 VFS_DESC=		HTTP streaming VFS plugin
 LASTFM_DESC=		Last.fm/Libre.fm scrobbler plugin
 ART_DESC=		Cover artwork loader plugin
 SUPEREQ_DESC=		SuperEQ DSP plugin (equalizer)
-SID_DESC=		Commodore 64 SID music player plugin
 FFAP_DESC=		${APE_DESC}
 VTX_DESC=		VTX ZX-Spectrum music player plugin
 ADPLUG_DESC=		AdPlug audio format (OPL2/OPL3) support
@@ -54,7 +52,7 @@ GME_DESC=		Chiptune music support (based on GME)
 DUMB_DESC=		D.U.M.B. plugin for MOD, S3M, etc.
 NOTIFY_DESC=		OSD notification support in GTKUI plugin
 WILDMIDI_DESC=		WildMIDI synthesizer plugin
-SC68_DESC=		sc68 Atari ST and Amiga player
+SC68_DESC=		sc68 Atari ST And Amiga player
 SHN_DESC=		Shorten waveform encoder support
 SHELLEXEC_DESC=		Shell commands execution plugin
 M3U_DESC=		M3U and PLS playlist format support
@@ -64,6 +62,11 @@ MONO2STEREO_DESC=	Mono to stereo converter DSP plugin
 CONVERTER_DESC=		Plugin for converting files from/to any formats
 VFS_ZIP_DESC=		Play files directly from ZIP archives
 PLTBROWSER_DESC=	Playlist browser GUI plugin
+OPUS_DESC=		Opus music player plugin
+RGSCANNER_DESC=		Calculates and writes ReplayGain tags
+LIBRETRO_DESC=		Samplerate converter using the sinc resampler from Libretro/RetroArch
+SOUNDTOUCH_DESC=	Tempo/Pitch/Rate changer plugin using SoundTouch Library
+PIPEWIRE_DESC=		Pipewire output plugin
 
 OPTIONS_SUB=		yes
 OPTIONS_RADIO+=		GUI
@@ -79,41 +82,42 @@ MAD_CONFIGURE_OFF=	--disable-libmad
 MPG123_LIB_DEPENDS=	libmpg123.so:audio/mpg123
 MPG123_CONFIGURE_OFF=	--disable-libmpg123
 
-PULSEAUDIO_LIB_DEPENDS=	libpulse.so:audio/pulseaudio
+PULSEAUDIO_LIB_DEPENDS=		libpulse.so:audio/pulseaudio
 PULSEAUDIO_CONFIGURE_OFF=	--disable-pulse
 
-GTK2_USE=		gnome=gtk20,glib20
+GTK2_USE=		GNOME=glib20,gtk20
 GTK2_CONFIGURE_OFF=	--disable-gtk2
 GTK2_CONFIGURE_ON=	--enable-gtk2
 GTK2_VARS=		GTK_VER=2
 GTK2_IMPLIES=		GUI
 
-GTK3_USE=		gnome=gtk30
+GTK3_USE=		GNOME=gtk30
 GTK3_CONFIGURE_OFF=	--disable-gtk3
 GTK3_CONFIGURE_ON=	--enable-gtk3
 GTK3_VARS=		GTK_VER=3
 GTK3_IMPLIES=		GUI
 
-PLIST_SUB+=		GTK_VER=${GTK_VER}
+PLIST_SUB+=	GTK_VER=${GTK_VER}
 
-GUI_CONFIGURE_OFF=	--disable-gtk2 --disable-gtk3
+GUI_CONFIGURE_OFF=	--disable-gtk2 \
+			--disable-gtk3
 GUI_LIB_DEPENDS=	libjansson.so:devel/jansson
 
 VFS_LIB_DEPENDS=	libcurl.so:ftp/curl
 VFS_CONFIGURE_OFF=	--disable-vfs-curl
 
-LASTFM_LIB_DEPENDS=	libcurl.so:ftp/curl
+LASTFM_LIB_DEPENDS=	libcurl.so:ftp/curl \
+			libdispatch.so:devel/libdispatch
 LASTFM_CONFIGURE_OFF=	--disable-lfm
 
 ART_LIB_DEPENDS=	libcurl.so:ftp/curl \
 			libImlib2.so:graphics/imlib2
 ART_USES=		jpeg
-ART_CONFIGURE_OFF=	--disable-artwork --disable-artwork-imlib2
+ART_CONFIGURE_OFF=	--disable-artwork \
+			--disable-artwork-imlib2
 ART_IMPLIES=		VFS
 
 SUPEREQ_CONFIGURE_OFF=	--disable-supereq
-
-SID_CONFIGURE_OFF=	--disable-sid
 
 FFAP_BUILD_DEPENDS=	yasm:devel/yasm
 FFAP_CONFIGURE_OFF=	--disable-ffap
@@ -127,10 +131,9 @@ HOTKEYS_CONFIGURE_OFF=	--disable-hotkeys
 OGG_LIB_DEPENDS=	libvorbis.so:audio/libvorbis
 OGG_CONFIGURE_OFF=	--disable-vorbis
 
-FFMPEG_BROKEN=		fails to compile
-FFMPEG_LIB_DEPENDS=	libavcodec.so:multimedia/ffmpeg \
-		libavformat.so:multimedia/ffmpeg \
-		libavutil.so:multimedia/ffmpeg
+FFMPEG_LIB_DEPENDS=		libavcodec.so:multimedia/ffmpeg \
+				libavformat.so:multimedia/ffmpeg \
+				libavutil.so:multimedia/ffmpeg
 FFMPEG_CONFIGURE_ENABLE=	ffmpeg
 
 FLAC_LIB_DEPENDS=	libFLAC.so:audio/flac
@@ -141,10 +144,6 @@ SNDFILE_CONFIGURE_OFF=	--disable-sndfile
 
 WAVPACK_LIB_DEPENDS=	libwavpack.so:audio/wavpack
 WAVPACK_CONFIGURE_OFF=	--disable-wavpack
-
-CDDA_LIB_DEPENDS=	libcdio.so:sysutils/libcdio \
-			libcddb.so:audio/libcddb
-CDDA_CONFIGURE_OFF=	--disable-cdda
 
 GME_CONFIGURE_OFF=	--disable-gme
 
@@ -190,16 +189,30 @@ CONVERTER_CONFIGURE_OFF=	--disable-converter
 VFS_ZIP_LIB_DEPENDS=	libzip.so:archivers/libzip
 VFS_ZIP_CONFIGURE_OFF=	--disable-vfs-zip
 
-ALAC_CONFIGURE_OFF=		--disable-alac
+ALAC_CONFIGURE_OFF=	--disable-alac
 
 PLTBROWSER_CONFIGURE_OFF=	--disable-pltbrowser
 
-WMA_CONFIGURE_OFF=		--disable-wma
+WMA_CONFIGURE_OFF=	--disable-wma
+
+OPUS_LIB_DEPENDS=	libogg.so:audio/libogg \
+			libopus.so:audio/opus \
+			libopusfile.so:audio/opusfile
+OPUS_CONFIGURE_OFF=	--disable-opus
+
+RGSCANNER_CONFIGURE_OFF=	--disable-rgscanner
+
+LIBRETRO_CONFIGURE_OFF=	--disable-libretro
+
+SOUNDTOUCH_CONFIGURE_OFF=	--disable-soundtouch
+
+PIPEWIRE_LIB_DEPENDS=	libpipewire-0.3.so:multimedia/pipewire
+PIPEWIRE_CONFIGURE_OFF=	--disable-pipewire
 
 .include <bsd.port.options.mk>
 
 .if !${PORT_OPTIONS:MGTK2} && !${PORT_OPTIONS:MGTK3}
-PORT_OPTIONS:=		${PORT_OPTIONS:NGUI}
+PORT_OPTIONS:=	${PORT_OPTIONS:NGUI}
 .endif
 
 .if !${PORT_OPTIONS:MMAD} && !${PORT_OPTIONS:MMPG123}
@@ -208,35 +221,5 @@ PLIST_SUB+=		MP3="@comment "
 .else
 PLIST_SUB+=		MP3=""
 .endif
-
-.if ${PORT_OPTIONS:MCDDA}
-DEPRECATED=	CDDA depends on expired audio/libcddb
-.endif
-
-post-patch:
-	@${REINPLACE_CMD} -e 's,register ,,' \
-		${WRKSRC}/plugins/adplug/adplug/rix.cpp \
-		${WRKSRC}/plugins/adplug/libbinio/binio.cpp
-# Do not link to libsupc++ which may be PIC-unsafe (breaks 64-bit arches)
-	@${REINPLACE_CMD} -e 's, -lsupc++,,' \
-		${WRKSRC}/plugins/adplug/Makefile.in \
-		${WRKSRC}/plugins/gme/Makefile.in \
-		${WRKSRC}/plugins/sid/Makefile.in \
-		${WRKSRC}/plugins/supereq/Makefile.in
-	@${REINPLACE_CMD} -e 's,/etc/timidity++/timidity-freepats.cfg:/etc/timidity/freepats.cfg:/etc/timidity/,${LOCALBASE}/share/,' \
-		${WRKSRC}/plugins/wildmidi/wildmidiplug.c
-# Clang accepts `-msse2' command line option even on !x86, need better check
-	@${REINPLACE_CMD} -e '25177s,^,#include <xmmintrin.h>,' \
-		${WRKSRC}/configure
-	@${REINPLACE_CMD} -e '/chnresolv/s,const char,signed &,' \
-		${WRKSRC}/plugins/adplug/adplug/s3m.cpp \
-		${WRKSRC}/plugins/adplug/adplug/s3m.h
-	@${REINPLACE_CMD} -e "/sampleConvertTable/s,int8_t,u&, ; \
-		86,+1 { s,',,g; s,\\\\x,0x,g; }" \
-		${WRKSRC}/plugins/sid/sidplay-libs/libsidplay/src/xsid/xsid.cpp \
-		${WRKSRC}/plugins/sid/sidplay-libs/libsidplay/src/xsid/xsid.h
-# Fix build with libzip-1.0
-	@${REINPLACE_CMD} 's,zip_file_t,zip_file_DB,g' \
-		${WRKSRC}/plugins/vfs_zip/vfs_zip.c
 
 .include <bsd.port.mk>
