@@ -1,6 +1,5 @@
 PORTNAME=	deadbeef-vu-meter-plugin
-DISTVERSION=	0.0.2014.09.14
-PORTREVISION=	2
+DISTVERSION=	0.0.2025.02.20
 CATEGORIES=	audio
 
 MAINTAINER=	danfe@FreeBSD.org
@@ -13,7 +12,7 @@ RUN_DEPENDS:=	${BUILD_DEPENDS}
 USE_GITHUB=	yes
 GH_ACCOUNT=	cboxdoerfer
 GH_PROJECT=	ddb_vu_meter
-GH_TAGNAME=	940d8d7
+GH_TAGNAME=	845de41
 
 USES=		gmake gnome pkgconfig
 
