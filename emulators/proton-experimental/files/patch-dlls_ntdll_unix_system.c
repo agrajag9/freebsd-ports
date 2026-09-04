@@ -21,4 +21,3 @@
  
  struct cpu_topology_override *get_cpu_topology_override(void)
  {
-
