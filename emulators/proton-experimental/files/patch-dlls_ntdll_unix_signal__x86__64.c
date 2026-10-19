@@ -1,6 +1,22 @@
---- dlls/ntdll/unix/signal_x86_64.c.orig	2023-07-17 16:05:30.000000000 +0300
-+++ dlls/ntdll/unix/signal_x86_64.c	2023-09-03 00:25:39.179645000 +0300
-@@ -2832,7 +2832,11 @@ void signal_init_process(void)
+--- dlls/ntdll/unix/signal_x86_64.c.orig	2026-10-05 01:24:23.674656000 -0700
++++ dlls/ntdll/unix/signal_x86_64.c	2026-10-05 01:24:23.682799000 -0700
+@@ -2217,6 +2217,7 @@ static int sc_seccomp(unsigned int operation, unsigned
+ }
+ #endif
+ 
++#ifdef HAVE_SECCOMP
+ static void check_bpf_jit_enable(void)
+ {
+     char enabled;
+@@ -2242,6 +2243,7 @@ static void check_bpf_jit_enable(void)
+     }
+     close(fd);
+ }
++#endif /* HAVE_SECCOMP */
+ 
+ static void install_bpf(struct sigaction *sig_act)
+ {
+@@ -3520,7 +3522,11 @@ void set_thread_teb( TEB *teb )
  
  void set_thread_teb( TEB *teb )
  {
