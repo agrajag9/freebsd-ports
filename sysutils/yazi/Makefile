@@ -11,10 +11,6 @@ WWW=		https://yazi-rs.github.io/
 LICENSE=	APACHE20 BSD2CLAUSE BSD3CLAUSE BSL ISCL MIT MPL20 \
 		Unicode-DFS-2016 ZLIB
 LICENSE_COMB=	multi
-LICENSE_NAME_Unicode-DFS-2016=	Unicode License Agreement - Data Files and Software (2016)
-LICENSE_TEXT_Unicode-DFS-2016=	Terms of use at https://spdx.org/licenses/Unicode-DFS-2016.html
-LICENSE_PERMS_Unicode-DFS-2016=	dist-mirror dist-sell pkg-mirror pkg-sell \
-				auto-accept
 
 BUILD_DEPENDS=	gawk:lang/gawk \
 		xsltproc:textproc/libxslt
